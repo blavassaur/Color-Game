@@ -3,7 +3,7 @@ var colors = generateRandomColors(numSquares);
 var squares = document.querySelectorAll(".square");
 var pickedColor = pickColor();
 var colorDisplay = document.getElementById("colorDisplay");
-var title = document.querySelector("h1");
+var title = document.querySelector(".header");
 var messageDisplay = document.querySelector("#message");
 var resetButton = document.querySelector("#reset");
 var easyButton = document.querySelector("#easy");
@@ -66,7 +66,7 @@ for (var i = 0; i < squares.length; i++) {
         //compare color to pickedColor
         if (clickedColor === pickedColor) {
             messageDisplay.textContent = "MY MAN!";
-            resetButton.textContent = "Play Again?"
+            resetButton.textContent = "Play Again"
             winColors(clickedColor);
         } else {
             this.style.backgroundColor = "#232323";
