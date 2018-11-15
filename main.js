@@ -1,79 +1,77 @@
 var numSquares = 6;
-var colors = generateRandomColors(numSquares);
+var colors;
+var pickedColor;
 var squares = document.querySelectorAll(".square");
-var pickedColor = pickColor();
 var colorDisplay = document.getElementById("colorDisplay");
 var title = document.querySelector(".header");
 var messageDisplay = document.querySelector("#message");
 var resetButton = document.querySelector("#reset");
-var easyButton = document.querySelector("#easy");
-var hardButton = document.querySelector("#hard");
+var modeButtons = document.querySelectorAll(".mode");
 
-colorDisplay.textContent = pickedColor;
+init();
 
 resetButton.addEventListener("click", function () {
+    reset();
+});
+
+function init() {
+    //mode button event listeners
+    setUpModeButtons();
+    //set up squares
+    setUpSquares();
+    reset();
+}
+
+function setUpModeButtons() {
+    for (var i = 0; i < modeButtons.length; i++) {
+        modeButtons[i].addEventListener("click", function () {
+            modeButtons[0].classList.remove("active");
+            modeButtons[1].classList.remove("active");
+            this.classList.add("active");
+            this.textContent === "EASY" ? numSquares = 3 : numSquares = 6;
+
+            reset();
+        })
+    }
+}
+
+function setUpSquares() {
+
+    for (var i = 0; i < squares.length; i++) {
+        //add click listeners to squres
+        squares[i].addEventListener("click", function () {
+            //grab color of clicked square
+            var clickedColor = this.style.backgroundColor
+            //compare color to pickedColor
+            if (clickedColor === pickedColor) {
+                messageDisplay.textContent = "MY MAN!";
+                resetButton.textContent = "Play Again"
+                winColors(clickedColor);
+            } else {
+                this.style.backgroundColor = "#232323";
+                messageDisplay.textContent = "lol nope";
+
+            }
+        })
+    }
+}
+
+function reset() {
     colors = generateRandomColors(numSquares);
     pickedColor = pickColor(0);
     colorDisplay.textContent = pickedColor;
+    messageDisplay.textContent = "";
+    resetButton.textContent = "NEW COLORS";
     title.style.backgroundColor = "#232323";
     for (var i = 0; i < squares.length; i++) {
         //add colors to squares
-        squares[i].style.backgroundColor = colors[i];
-    }
-});
-
-easyButton.addEventListener("click", function () {
-    easyButton.classList.add("active");
-    hardButton.classList.remove("active");
-    numSquares = 3;
-    colors = generateRandomColors(numSquares);
-    pickedColor = pickColor(0);
-    colorDisplay.textContent = pickedColor;
-    for (var i = 0; i < squares.length; i++) {
-        //add colors to squares
         if (colors[i]) {
+            squares[i].style.display = "block";
             squares[i].style.backgroundColor = colors[i];
         } else {
             squares[i].style.display = "none";
         }
-
     }
-})
-
-hardButton.addEventListener("click", function () {
-    hardButton.classList.add("active");
-    easyButton.classList.remove("active");
-    numSquares = 6;
-    colors = generateRandomColors(numSquares);
-    pickedColor = pickColor(0);
-    colorDisplay.textContent = pickedColor;
-    for (var i = 0; i < squares.length; i++) {
-        //add colors to squares
-        squares[i].style.backgroundColor = colors[i];
-        squares[i].style.display = "block";
-    }
-})
-
-
-for (var i = 0; i < squares.length; i++) {
-    //add colors to squares
-    squares[i].style.backgroundColor = colors[i];
-
-    //add click listeners to squres
-    squares[i].addEventListener("click", function () {
-        //grab color of clicked square
-        var clickedColor = this.style.backgroundColor
-        //compare color to pickedColor
-        if (clickedColor === pickedColor) {
-            messageDisplay.textContent = "MY MAN!";
-            resetButton.textContent = "Play Again"
-            winColors(clickedColor);
-        } else {
-            this.style.backgroundColor = "#232323";
-            messageDisplay.textContent = "lol nope";
-
-        }
-    })
 }
 
 
