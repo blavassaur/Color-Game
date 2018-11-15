@@ -10,6 +10,17 @@ h1 {
     margin: 0;
 }
 
+button {
+    border: none;
+    height: 30px;
+    background: white;
+}
+
+button:hover{
+    background-color: darkcyan;
+    color: white;
+}
+
 .square {
     width: 100%;
     max-width: 150px;
@@ -24,6 +35,7 @@ h1 {
     margin:0;
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
 
@@ -37,6 +49,8 @@ h1 {
     align-items: center;
 }
 
-#reset {
-    background: white;
+
+.active {
+    background: darkcyan;
+    color: white;
 }

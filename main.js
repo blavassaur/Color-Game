@@ -1,15 +1,18 @@
-var colors = generateRandomColors(6);
+var numSquares = 6;
+var colors = generateRandomColors(numSquares);
 var squares = document.querySelectorAll(".square");
 var pickedColor = pickColor();
 var colorDisplay = document.getElementById("colorDisplay");
 var title = document.querySelector("h1");
 var messageDisplay = document.querySelector("#message");
 var resetButton = document.querySelector("#reset");
+var easyButton = document.querySelector("#easy");
+var hardButton = document.querySelector("#hard");
 
 colorDisplay.textContent = pickedColor;
 
 resetButton.addEventListener("click", function () {
-    colors = generateRandomColors(6);
+    colors = generateRandomColors(numSquares);
     pickedColor = pickColor(0);
     colorDisplay.textContent = pickedColor;
     title.style.backgroundColor = "#232323";
@@ -18,6 +21,39 @@ resetButton.addEventListener("click", function () {
         squares[i].style.backgroundColor = colors[i];
     }
 });
+
+easyButton.addEventListener("click", function () {
+    easyButton.classList.add("active");
+    hardButton.classList.remove("active");
+    numSquares = 3;
+    colors = generateRandomColors(numSquares);
+    pickedColor = pickColor(0);
+    colorDisplay.textContent = pickedColor;
+    for (var i = 0; i < squares.length; i++) {
+        //add colors to squares
+        if (colors[i]) {
+            squares[i].style.backgroundColor = colors[i];
+        } else {
+            squares[i].style.display = "none";
+        }
+
+    }
+})
+
+hardButton.addEventListener("click", function () {
+    hardButton.classList.add("active");
+    easyButton.classList.remove("active");
+    numSquares = 6;
+    colors = generateRandomColors(numSquares);
+    pickedColor = pickColor(0);
+    colorDisplay.textContent = pickedColor;
+    for (var i = 0; i < squares.length; i++) {
+        //add colors to squares
+        squares[i].style.backgroundColor = colors[i];
+        squares[i].style.display = "block";
+    }
+})
+
 
 for (var i = 0; i < squares.length; i++) {
     //add colors to squares
@@ -40,10 +76,6 @@ for (var i = 0; i < squares.length; i++) {
     })
 }
 
-
-function setInitialColors(){
-    
-}
 
 //change color of squares when correct
 function winColors(color) {
